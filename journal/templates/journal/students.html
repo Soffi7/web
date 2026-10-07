@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ page_title }} - Электронный журнал{% endblock %}
+
+{% block content %}
+    <h2>{{ page_title }}</h2>
+
+    <p>Ниже представлен список студентов:</p>
+    <ul>
+        {% for student in student_list %}
+            <li>
+                {% if student.status == 'отличник'}
+                    <strong>{{ student.name }}</strong>
+                {% else %}
+                    {{ student.name }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
