@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ page_title }} - Электронный журнал{% endblock %}
+{% block title %}{{ page_title }} - Электронный журнал{% endblock %}
 
 {% block content %}
     <h2>{{ page_title }}</h2>
 
-    <p>Ниже представлен список только активных групп:</p>
     <ul>
         {% for group in groups_list %}
-            {% if group.is_active %}
-                <li>{{ group.name }} (ID: {{ group.id }})</li>
-            {% endif %}
+            <li>
+                <a href="{% url 'group_detail' group_id=group.id %}">{{ group }}</a>
+            </li>
+        {% empty %}
+            <li>Список групп пуст.</li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали группы: {{ group.name }}{% endblock %}
+
+{% block content %}
+    <h2>Информация о группе "{{ group.name }}"</h2>
+    <p><strong>ID:</strong> {{ group.id }}</p>
+
+    <hr style="margin: 20px 0;">
+
+    <h3>Студенты в этой группе:</h3>
+
+    {% if students %}
+        <ul>
+            {% for student in students %}
+                <li>
+                    <a href="{% url 'student_detail' student_id=student.id %}">
+                        {{ student }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>В этой группе пока нет студентов.</p>
+    {% endif %}
+
+    <hr style="margin: 20px 0;">
+    <a href="{% url 'groups' %}">← Назад к списку групп</a>
+{% endblock %}

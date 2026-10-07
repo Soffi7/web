@@ -7,14 +7,15 @@
 
     <p>Ниже представлен список студентов:</p>
     <ul>
-        {% for student in student_list %}
+        {% for student in students_list %}
             <li>
-                {% if student.status == 'отличник'}
-                    <strong>{{ student.name }}</strong>
-                {% else %}
-                    {{ student.name }}
-                {% endif %}
+                <a href="{% url 'student_detail' student_id=student.id %}">
+                    {{ student.last_name }} {{ student.first_name }}
+                </a>
+                — {{ student.group.name }}
             </li>
+        {% empty %}
+            <li>Список студентов пуст.</li>
         {% endfor %}
     </ul>
 {% endblock %}

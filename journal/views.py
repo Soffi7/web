@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from .models import Group
+from .models import Student
 
 # Create your views here.
 def index_view(request):
@@ -11,25 +13,33 @@ def about_view(request):
     return render(request, 'journal/about.html')
 
 def students_view(request):
-    students_list = [
-        {'name': 'Иван Петров', 'status': 'отличник'},
-        {'name': 'Анна Сидорова', 'status': 'хорошист'},
-        {'name': 'Петр Иванов', 'status': 'отличник'},
-    ]
+    all_students = Student.objects.all()
     context = {
         'page_title': 'Список студентов',
-        'students_list': students_list,
+        'students_list': all_students,
     }
-    return render(request, 'journal/students.html')
+    return render(request, 'journal/students.html', context)
 
 def groups_view(request):
-    groups_list = [
-        {'id': 1, 'name': '9А Класс', 'is_active': True},
-        {'id': 2, 'name': '10Б Класс (архив)', 'is_active': False},
-        {'id': 3, 'name': '11В Класс', 'is_active': True},
-    ]
-    context = {
+   all_groups = Group.objects.all
+   context = {
         'page_title': 'Список учебных групп',
-        'groups_list': groups_list,
+        'groups_list': all_groups,
     }
-    return render(request, 'journal/groups.html')
+   return render(request, 'journal/groups.html', context)
+
+def group_detail_view(request, group_id):
+    group = Group.objects.get(pk=group_id)
+    students_in_group = group.students.all()
+    context = {
+        'group': group,
+        'students': students_in_group,
+    }
+    return render(request, 'journal/group_detail.html', context)
+
+def student_detail_view(request, student_id):
+    student = Student.objects.get(pk=student_id)
+    context = {
+        'student': student
+    }
+    return render(request, 'journal/student_detail.html', context)

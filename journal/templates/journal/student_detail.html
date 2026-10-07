@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали студента: {{ student.last_name }} {{ student.first_name }}{% endblock %}
+
+{% block content %}
+    <h2>Информация о студенте</h2>
+    <p><strong>Имя:</strong> {{ student.first_name }}</p>
+    <p><strong>Фамилия:</strong> {{ student.last_name }}</p>
+    <p><strong>Группа:</strong>
+        <a href="{% url 'group_detail' group_id=student.group.id %}">
+            {{ student.group }}
+        </a>
+    </p>
+    <p><strong>ID:</strong> {{ student.id }}</p>
+
+    <hr style="margin: 20px 0;">
+    <a href="{% url 'students' %}">← Назад к списку студентов</a>
+{% endblock %}
