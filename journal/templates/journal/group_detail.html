@@ -6,6 +6,8 @@
     <h2>Информация о группе "{{ group.name }}"</h2>
     <p><strong>ID:</strong> {{ group.id }}</p>
 
+    <p><a href="{% url 'group_edit' group_id=group.id %}">Редактировать группу</a></p>
+
     <hr style="margin: 20px 0;">
 
     <h3>Студенты в этой группе:</h3>

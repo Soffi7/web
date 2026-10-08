@@ -5,11 +5,11 @@
 {% block content %}
     <h2>{{ page_title }}</h2>
 
+    <p><a href="{% url 'group_add' %}">Добавить новую группу</a></p>
+
     <ul>
         {% for group in groups_list %}
-            <li>
-                <a href="{% url 'group_detail' group_id=group.id %}">{{ group }}</a>
-            </li>
+            <li><a href="{% url 'group_detail' group_id=group.id %}">{{ group }}</a></li>
         {% empty %}
             <li>Список групп пуст.</li>
         {% endfor %}

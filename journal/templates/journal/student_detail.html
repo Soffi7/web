@@ -13,6 +13,8 @@
     </p>
     <p><strong>ID:</strong> {{ student.id }}</p>
 
+    <p><a href="{% url 'student_edit' student_id=student.id %}">Редактировать студента</a></p>
+
     <hr style="margin: 20px 0;">
     <a href="{% url 'students' %}">← Назад к списку студентов</a>
 {% endblock %}
