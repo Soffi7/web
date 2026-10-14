@@ -3,6 +3,7 @@ from .models import Group
 from .models import Student
 from .forms import GroupForm
 from .forms import StudentForm
+from .forms import GradeForm
 
 # Create your views here.
 def index_view(request):
@@ -131,3 +132,18 @@ def student_delete_view(request, student_id):
         'student': student
     }
     return render(request, 'journal/student_delete_confirm.html', context)
+
+def grade_add_view(request):
+    if request.method == 'POST':
+        form = GradeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        else:
+            form = GradeForm()
+
+        context = {
+            'form': form,
+            'page_title': 'Выставить новую оценку'
+        }
+        return render(request, 'journal/grade_form.html', context)
