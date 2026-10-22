@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Group
-from .models import Student
-from .forms import GroupForm
-from .forms import StudentForm
-from .forms import GradeForm
+from .models import Group, Student, Grade
+from .forms import GroupForm, StudentForm, GradeForm
 
 # Create your views here.
 def index_view(request):
@@ -32,11 +29,30 @@ def groups_view(request):
    return render(request, 'journal/groups.html', context)
 
 def group_detail_view(request, group_id):
-    group = Group.objects.get(pk=group_id)
-    students_in_group = group.students.all()
+    group = get_object_or_404(Group, pk=group_id)
+    students = Student.objects.filter(group=group)
+
+    if request.method == 'POST':
+        form = GradeForm(request.POST)
+        if form.is_valid():
+            Grade.objects.create(
+                value=form.cleaned_data['value'],
+                student=form.cleaned_data['student'],
+                subject=form.cleaned_data['subject'],
+            )
+            return redirect('group_detail', group_id=group.id)
+    else:
+        form = GradeForm()
+
+    form.fields['student'].queryset = students
+
+    grades = Grade.objects.filter(student__in=students)
+
     context = {
         'group': group,
-        'students': students_in_group,
+        'students': students,
+        'form': form,
+        'grades': grades,
     }
     return render(request, 'journal/group_detail.html', context)
 
@@ -139,11 +155,11 @@ def grade_add_view(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-        else:
-            form = GradeForm()
+    else:
+        form = GradeForm()
 
-        context = {
-            'form': form,
-            'page_title': 'Выставить новую оценку'
+    context = {
+        'form': form,
+        'page_title': 'Выставить новую оценку'
         }
-        return render(request, 'journal/grade_form.html', context)
+    return render(request, 'journal/grade_form.html', context)

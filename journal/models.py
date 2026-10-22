@@ -35,7 +35,7 @@ class Subject(models.Model):
 
 class Grade(models.Model):
     value = models.PositiveSmallIntegerField()
-    date = models.DateField()
+    date = models.DateField(blank=True, null=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='grades')
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='grades')
 
