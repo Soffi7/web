@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Форма учителя</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <hr style="margin: 20px 0;">
+    <a href="{% url 'teachers' %}">← Назад к списку учителей</a>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Учитель: {{ teacher.last_name }}{% endblock %}
+
+{% block content %}
+    <h2>Информация об учителе</h2>
+
+    <p><strong>Имя:</strong> {{ teacher.first_name }}</p>
+    <p><strong>Фамилия:</strong> {{ teacher.last_name }}</p>
+
+    <p><a href="{% url 'teacher_edit' teacher.pk %}">Редактировать учителя</a></p>
+    <p><a href="{% url 'teacher_delete' teacher.pk %}">Удалить учителя</a></p>
+
+    <hr style="margin: 20px 0;">
+    <a href="{% url 'teachers' %}">← Назад к списку учителей</a>
+{% endblock %}

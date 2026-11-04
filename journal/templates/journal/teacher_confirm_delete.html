@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Удалить учителя?</h2>
+
+    <p>Вы уверены, что хотите удалить учителя <strong>{{ object.last_name }} {{ object.first_name }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" style="color: red;">Да, удалить</button>
+        <a href="{% url 'teachers' %}" style="margin-left: 15px;">Отмена</a>
+    </form>
+{% endblock %}

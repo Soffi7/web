@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Список учителей{% endblock %}
+
+{% block content %}
+    <h2>Список учителей</h2>
+
+    <p><a href="{% url 'teacher_add' %}">Добавить нового учителя</a></p>
+
+    <ul>
+        {% for teacher in teachers %}
+            <li>
+                <a href="{% url 'teacher_detail' teacher.pk %}">
+                    {{ teacher.last_name }} {{ teacher.first_name }}
+                </a>
+            </li>
+        {% empty %}
+            <li>Учителей пока нет.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

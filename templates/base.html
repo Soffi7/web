@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Электронный журнал{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Электронный журнал</h1>
+
+        {% include 'includes/navigation.html' %}
+
+        <hr>
+    </header>
+
+    {% if messages %}
+        <div style="padding: 10px; margin: 10px 0; border: 1px solid #ddd;">
+            <ul style="margin: 0; padding: 0; list-style-type: none;">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}
+                        style="background-color: #dff0d8; color: #3c763d; padding: 10px;">
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer style="margin-top: 50px;">
+        <hr>
+        <p>&copy; 2026 Электронный журнал</p>
+    </footer>
+</body>
+</html>

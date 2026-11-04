@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Список предметов{% endblock %}
+
+{% block content %}
+    <h2>Список предметов</h2>
+
+    <p><a href="{% url 'subject_add' %}">Добавить новый предмет</a></p>
+
+    <ul>
+        {% for subject in subjects %}
+            <li>
+                <a href="{% url 'subject_detail' subject.pk %}">
+                    {{ subject.title }}
+                </a>
+            </li>
+        {% empty %}
+            <li>Предметов пока нет.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

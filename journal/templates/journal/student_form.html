@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if student %}Редактирование студента{% else %}Добавить нового студента{% endif %}
+{% endblock %}
+
+{% block content %}
+    <h2>
+        {% if student %}
+            Редактирование студента: {{ student.last_name }} {{ student.first_name }}
+        {% else %}
+            Добавить нового студента
+        {% endif %}
+    </h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
+    </form>
+
+    {% if student %}
+        <hr style="margin: 20px 0;">
+        <a href="{% url 'student_delete' student_id=student.id %}" style="color: red;">Удалить студента</a>
+    {% endif %}
+{% endblock %}
